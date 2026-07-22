@@ -1,0 +1,45 @@
+# Python/runtime artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+venv/
+.venv/
+build/
+dist/
+*.egg-info/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.env
+!*.env.example
+private.env
+*.pem
+*.key
+*.crt
+
+# WeChat credentials, tokens, login state, and runtime status
+access_token_cache.json
+mp_state.json
+mp_scraper_state*.json
+mp_scraper_status.json
+pending_unsupported.jsonl
+mp_login_qr.png
+mp_private_last.png
+mp_private_after_send.png
+
+# User-uploaded/downloaded media and local verification files
+stickers/*
+!stickers/.gitkeep
+verify/*
+!verify/.gitkeep
+
+# Local editor/tooling state
+.DS_Store
+.idea/
+.vscode/
+.arts/

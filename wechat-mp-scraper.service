@@ -1,0 +1,17 @@
+[Unit]
+Description=WeChat MP private message scraper
+After=network.target wechat-bot.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/wechat-bot
+EnvironmentFile=-/opt/wechat-bot/private.env
+Environment=BOT_DIR=/opt/wechat-bot
+Environment=STICKER_DIR=/opt/wechat-bot/stickers
+ExecStart=/opt/wechat-bot/venv/bin/python /opt/wechat-bot/mp_private_scraper.py watch
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

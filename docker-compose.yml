@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  web:
+    build: .
+    image: wechat-bot-web:latest
+    container_name: wechat-bot-web
+    env_file: .env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./stickers:/opt/wechat-bot/stickers
+      - ./verify:/opt/wechat-bot/verify
+      - ./mp_state.json:/opt/wechat-bot/mp_state.json
+      - ./mp_scraper_state.json:/opt/wechat-bot/mp_scraper_state.json
+      - ./mp_scraper_status.json:/opt/wechat-bot/mp_scraper_status.json
+      - ./pending_unsupported.jsonl:/opt/wechat-bot/pending_unsupported.jsonl
+      - ./access_token_cache.json:/opt/wechat-bot/access_token_cache.json
+      - ./private.env:/opt/wechat-bot/private.env:ro
+    restart: unless-stopped
+
+  scraper:
+    build: .
+    image: wechat-bot-scraper:latest
+    container_name: wechat-bot-scraper
+    env_file: .env
+    command: ["python", "mp_private_scraper.py", "watch"]
+    volumes:
+      - ./stickers:/opt/wechat-bot/stickers
+      - ./verify:/opt/wechat-bot/verify
+      - ./mp_state.json:/opt/wechat-bot/mp_state.json
+      - ./mp_scraper_state.json:/opt/wechat-bot/mp_scraper_state.json
+      - ./mp_scraper_status.json:/opt/wechat-bot/mp_scraper_status.json
+      - ./pending_unsupported.jsonl:/opt/wechat-bot/pending_unsupported.jsonl
+      - ./access_token_cache.json:/opt/wechat-bot/access_token_cache.json
+      - ./private.env:/opt/wechat-bot/private.env:ro
+    restart: unless-stopped
